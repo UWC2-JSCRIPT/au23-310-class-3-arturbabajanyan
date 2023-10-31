@@ -3,6 +3,17 @@
 // i.e. {descr: 'Coke', price: 1.99}
 // function should log each item to the console and log a total price
 
+let tax = 6.5; //MA tax
+
+function logReceipt(burrito, price, sprite) {
+  console.log(`${burrito.descr} - $${burrito.price}`);
+  console.log(`${price.descr} - $${price.price}`);
+  console.log(`${sprite.descr} - $${sprite.price}`);
+  console.log("---------------------");
+  console.log(`Total - $${burrito.price + price.price + sprite.price}`);
+  console.log(`Tax - ${tax}%`);
+  console.log(`Grand total - $${((burrito.price + price.price + sprite.price) * (100 + tax)/100).toFixed(2)}`);
+}
 
 
 // Check
