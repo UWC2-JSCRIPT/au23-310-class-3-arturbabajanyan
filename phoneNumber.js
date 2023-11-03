@@ -5,6 +5,17 @@
 // '206 333 4444'
 // Returns true if valid, false if not valid
 
+function testPhoneNumber(phoneNumber) {
+    let checkPhoneNumber = /^(\()?[0-9]{3}(\))?(\.)?([-\s])?[0-9]{3}([-\s])?(\.)?[0-9]{4}$/;
+    //console.log(checkPhoneNumber.test(phoneNumber));
+    if (checkPhoneNumber.test(phoneNumber)) {
+        console.log(parsePhoneNumber(phoneNumber));
+        console.log(parsePhoneNumber('(222) 422-5353'));
+        // returns {areaCode: '206', phoneNumber: '3334444'}
+    } else {
+        console.log("Sorry you entered wrong number, Please enter correct number.")
+    }
+}
 
 
 // Explanation of RegExp
@@ -20,7 +31,7 @@
 
 // check testPhoneNumber
 console.log(testPhoneNumber('(206) 333-4444')); // should return true
-console.log(testPhoneNumber('(206) 33-4444')); // should return false, missing a digit
+console.log(testPhoneNumber('(206) 33-4444'));   // should return false, missing a digit
 
 
 // 1. Create a function parsePhoneNumber that takes in a phoneNumber string 
@@ -29,12 +40,26 @@ console.log(testPhoneNumber('(206) 33-4444')); // should return false, missing a
 // and run the exec method to capture the area code and remaining part of
 // the phone number.
 // Returns an object in the format {areaCode, phoneNumber}
+function parsePhoneNumber(phoneNumber) {
+    //console.log(phoneNumber);
+    let regex1 = RegExp('[0-9]{1}', 'g');
+    const str1 = phoneNumber;
+    let array1;
+    let x = 0;
+    let cleanNumber = "";
+    const returnedObject = {};
 
+    while ((array1 = regex1.exec(str1)) !== null) {
+        //console.log(`Found ${array1[0]}. Next starts at ${regex1.lastIndex}.`);
+        cleanNumber = cleanNumber + array1[0];
+    }
+    //return typeof cleanNumber;
+    let areaCode = cleanNumber.substring(0, 3);
+    let phoneNumberLastDigits = cleanNumber.substring(3, cleanNumber.length)
 
+    returnedObject.areaCode = areaCode;
+    returnedObject.phoneNumber = phoneNumberLastDigits;
+    //console.log(cleanNumber.substring(0, 3), cleanNumber.substring(3, cleanNumber.length));
 
-// Check parsePhoneNumber
-console.log(parsePhoneNumber('206-333-4444'));
-// returns {areaCode: '206', phoneNumber: '3334444'}
-
-console.log(parsePhoneNumber('(222) 422-5353'));
-// returns {areaCode: '222', phoneNumber: '4225353'}
+    return (returnedObject);
+}
