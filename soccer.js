@@ -19,17 +19,41 @@ const getPointsFromResult = function getPointsFromResult(result) {
 // Create getTotalPoints function which accepts a string of results
 // including wins, draws, and losses i.e. 'wwdlw'
 // Returns total number of points won
+const getTotalPoints = function(results) {
+  results = results.toLowerCase(); //corrects error if letter is entered upper case by mistake
+  let resultList = results.split('');
 
+  let totalScore = 0;
+
+  resultList.forEach(element => {
+      if (element === "w") {
+          totalScore = totalScore + RESULT_VALUES[element];
+      } else if (element === "d") {
+          totalScore = totalScore + RESULT_VALUES[element];
+      } else if (element === "l") {
+          totalScore = totalScore + RESULT_VALUES[element];
+      } else {
+          "Something wrong in the result. Please check the result letters should be 'w'."
+      }
+  });
+
+  return totalScore;
+}
 
 
 // Check getTotalPoints
-console.log(getTotalPoints('wwdl')); // should equal 7
+console.log(getTotalPoints('wWdl')); // should equal 7
 
 // create orderTeams function that accepts as many team objects as desired, 
 // each argument is a team object in the format { name, results }
 // i.e. {name: 'Sounders', results: 'wwlwdd'}
 // Logs each entry to the console as "Team name: points"
-
+const orderTeams = function(...teamsResults) {
+  teamsResults.forEach(element => {
+    console.log(element.name + ": " + getTotalPoints(element.results));
+    // console.log(getTotalPoints(element.results));
+  });
+}
 
 
 // Check orderTeams
